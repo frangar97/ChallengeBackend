@@ -1,5 +1,6 @@
 ﻿using Core.Base;
 using Core.Employee;
+using Core.Shop;
 
 namespace Core.ShopEmployee
 {
@@ -9,6 +10,6 @@ namespace Core.ShopEmployee
         public int ShopId { get; set; }
         public DateTime WorkDate { get; set; }
         public EmployeeEntity Employee { get; set; }
-        public ShopEmployeeEntity Shop { get; set; }
+        public ShopEntity Shop { get; set; }
     }
 }
