@@ -1,3 +1,5 @@
+using Core.Base;
+using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -14,6 +16,8 @@ builder.Services.AddDbContextPool<ChallengeContext>(options =>
 {
     options.UseNpgsql(builder.Configuration.GetConnectionString("Challenge"));
 });
+
+builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 
 var app = builder.Build();
 
