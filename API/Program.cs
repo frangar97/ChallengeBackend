@@ -1,3 +1,6 @@
+using Microsoft.EntityFrameworkCore;
+using Persistence;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,7 +10,27 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddDbContextPool<ChallengeContext>(options =>
+{
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Challenge"));
+});
+
 var app = builder.Build();
+
+using(var scope  = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    try
+    {
+        var context = services.GetRequiredService<ChallengeContext>();
+        context.Database.Migrate();
+    }catch(Exception e)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(e, "Ocurrio un error");
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

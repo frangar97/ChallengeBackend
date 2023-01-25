@@ -22,6 +22,13 @@ namespace Persistence
             modelBuilder.ApplyConfiguration(new EmployeeTypeConfiguration());
             modelBuilder.ApplyConfiguration(new ShopConfiguration());
             modelBuilder.ApplyConfiguration(new ShopEmployeeConfiguration());
+
+            modelBuilder.Entity<EmployeeTypeEntity>()
+                .HasData(
+                new EmployeeTypeEntity {Id=1, Name="Manager",Salary=20000}, 
+                new EmployeeTypeEntity {Id=2, Name = "Accountant", Salary = 15000 },
+                new EmployeeTypeEntity { Id=3,Name = "Clerk", Salary = 12000 }
+                );
         }
     }
 }
