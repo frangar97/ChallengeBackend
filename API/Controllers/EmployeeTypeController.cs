@@ -1,7 +1,6 @@
-﻿using Core.Base;
-using Core.EmployeeType;
+﻿using Core.EmployeeType;
 using Core.EmployeeType.DTO;
-using Microsoft.AspNetCore.Http;
+using Core.EmployeeType.services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -10,19 +9,31 @@ namespace API.Controllers
     [ApiController]
     public class EmployeeTypeController : ControllerBase
     {
-        private readonly IUnitOfWork unitOfWork;
+        private readonly IEmployeeTypeService service;
 
-        public EmployeeTypeController(IUnitOfWork unitOfWork)
+        public EmployeeTypeController(IEmployeeTypeService service)
         {
-            this.unitOfWork = unitOfWork;
+            this.service = service;
         }
 
         [HttpGet]
         public IActionResult GetEmployeeTypes()
         {
-            var employeeTypes = unitOfWork.EmployeeTypeRepository.GetAll();
+            var employeeTypes = service.GetAll();
             var employeeTypesDto = employeeTypes.Select(x=>new EmployeeTypeDTO { Id=x.Id,Name=x.Name,Salary=x.Salary}).ToList();
             return Ok(employeeTypesDto);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateEmployeeType([FromBody] CreateEmployeeTypeDTO data)
+        {
+            var employeeType = new EmployeeTypeEntity { Name=data.Name,Salary=data.Salary };
+
+            await service.CreateEmployeeType(employeeType);
+
+            var employeeTypeDto = new EmployeeTypeDTO { Id = employeeType.Id, Name = employeeType.Name, Salary = employeeType.Salary };
+
+            return Ok(employeeTypeDto);
         }
     }
 }

@@ -1,4 +1,8 @@
 using Core.Base;
+using Core.Employee.services;
+using Core.EmployeeType.services;
+using Core.Shop.services;
+using Core.ShopEmployee.services;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -19,6 +23,10 @@ builder.Services.AddDbContextPool<ChallengeContext>(options =>
 
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
 builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
+builder.Services.AddTransient<IEmployeeService, EmployeeService>();
+builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
+builder.Services.AddTransient<IShopService, ShopService>();
+builder.Services.AddTransient<IShopEmployeeService, ShopEmployeeService>();
 
 var app = builder.Build();
 
