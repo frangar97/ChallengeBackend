@@ -18,6 +18,7 @@ builder.Services.AddDbContextPool<ChallengeContext>(options =>
 });
 
 builder.Services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
+builder.Services.AddTransient<IUnitOfWork, UnitOfWork>();
 
 var app = builder.Build();
 

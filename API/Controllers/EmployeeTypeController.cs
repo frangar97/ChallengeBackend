@@ -10,17 +10,17 @@ namespace API.Controllers
     [ApiController]
     public class EmployeeTypeController : ControllerBase
     {
-        private readonly IRepository<EmployeeTypeEntity> _repository;
+        private readonly IUnitOfWork unitOfWork;
 
-        public EmployeeTypeController(IRepository<EmployeeTypeEntity> repository)
+        public EmployeeTypeController(IUnitOfWork unitOfWork)
         {
-            _repository = repository;
+            this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
         public IActionResult GetEmployeeTypes()
         {
-            var employeeTypes = _repository.GetAll();
+            var employeeTypes = unitOfWork.EmployeeTypeRepository.GetAll();
             var employeeTypesDto = employeeTypes.Select(x=>new EmployeeTypeDTO { Id=x.Id,Name=x.Name,Salary=x.Salary}).ToList();
             return Ok(employeeTypesDto);
         }
