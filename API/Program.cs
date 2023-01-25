@@ -3,6 +3,7 @@ using Core.Employee.services;
 using Core.EmployeeType.services;
 using Core.Shop.services;
 using Core.ShopEmployee.services;
+using FluentValidation;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -12,6 +13,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 
 builder.Services.AddControllers();
+builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -27,6 +29,15 @@ builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IShopService, ShopService>();
 builder.Services.AddTransient<IShopEmployeeService, ShopEmployeeService>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: "ChallengePolicy",
+                      policy =>
+                      {
+                          policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                      });
+});
 
 var app = builder.Build();
 
@@ -51,6 +62,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("ChallengePolicy");
 
 app.UseAuthorization();
 
