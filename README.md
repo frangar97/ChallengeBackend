@@ -8,12 +8,15 @@
 
 ### API Structure
 The API project it will helps to communicate between the client through http.
+
     ,
     ├── controllers             #  It helps to communicate the data send of the client to the businnes logic
     └──  Program.cs               #It helps to configure services and dependency injection.
 
 ### Core Structure
 The Core project it contains the domain entities, interfaces and services that will handle the business logic of the application. The project is divided by features for each entity that has the following structure.
+
+
 .
     ├── DTO                   
     ├── Services                    
@@ -22,6 +25,7 @@ The Core project it contains the domain entities, interfaces and services that w
     
 ### Infrastructure Structure
 The infrastructure project it handles the implementation of the interfaces defined in the Core module and validations rules for each entity.
+
 
 ,
     ├──  Repositories           
