@@ -4,6 +4,7 @@ using Core.EmployeeType.services;
 using Core.Shop.services;
 using Core.ShopEmployee.services;
 using FluentValidation;
+using Infrastructure;
 using Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
@@ -12,7 +13,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<GlobalExceptionFilter>();
+});
 builder.Services.AddValidatorsFromAssemblies(AppDomain.CurrentDomain.GetAssemblies());
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
