@@ -1,7 +1,9 @@
 using Core.Base;
+using Core.Employee;
 using Core.Employee.services;
 using Core.EmployeeType.services;
 using Core.Shop.services;
+using Core.ShopEmployee;
 using Core.ShopEmployee.services;
 using FluentValidation;
 using Infrastructure;
@@ -33,6 +35,8 @@ builder.Services.AddTransient<IEmployeeService, EmployeeService>();
 builder.Services.AddTransient<IEmployeeTypeService, EmployeeTypeService>();
 builder.Services.AddTransient<IShopService, ShopService>();
 builder.Services.AddTransient<IShopEmployeeService, ShopEmployeeService>();
+builder.Services.AddTransient<IEmployeeRepository, EmployeeRepository>();
+builder.Services.AddTransient<IShopEmployeeRepository, ShopEmployeeRepository>();
 
 builder.Services.AddCors(options =>
 {

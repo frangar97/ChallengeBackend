@@ -2,7 +2,7 @@
 {
     public interface IEmployeeService
     {
-        IEnumerable<EmployeeEntity> GetAll();
+        Task<IEnumerable<EmployeeEntity>> GetAll();
         Task CreateEmployee(EmployeeEntity entity);
     }
 }

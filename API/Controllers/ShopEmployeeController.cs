@@ -16,6 +16,14 @@ namespace API.Controllers
             this.service = service;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetShopEmployees()
+        {
+            var shopEmployees = await service.GetAll();
+            var shopEmployeesDTO = shopEmployees.Select(x => new ShopEmployeeDTO{ Id=x.Id,ShopName=x.Shop.Name,EmployeeName=x.Employee.Name,WorkDate=x.WorkDate }).ToList();
+            return Ok(shopEmployeesDTO);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreateShopEmployee([FromBody] CreateShopEmployeeDTO data)
         {

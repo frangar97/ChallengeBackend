@@ -17,9 +17,9 @@ namespace Core.Employee.services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public IEnumerable<EmployeeEntity> GetAll()
+        public async Task<IEnumerable<EmployeeEntity>> GetAll()
         {
-            return unitOfWork.EmployeeRepository.GetAll();
+            return await unitOfWork.EmployeeRepository.GetAllWithRelations();
         }
     }
 }

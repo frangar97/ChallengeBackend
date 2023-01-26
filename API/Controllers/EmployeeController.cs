@@ -17,10 +17,10 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetEmployees()
+        public async Task<IActionResult> GetEmployees()
         {
-            var employees = service.GetAll();
-            var employeesDTO = employees.Select(x => new EmployeeDTO { Id = x.Id, Name = x.Name,Address=x.Address,Telephone=x.Telephone,EmployeeTypeId=x.EmployeeTypeId,EmploymentDate=x.EmploymentDate }).ToList();
+            var employees =await service.GetAll();
+            var employeesDTO = employees.Select(x => new EmployeeDTO { Id = x.Id, Name = x.Name,Address=x.Address,Telephone=x.Telephone,EmployeeTypeId=x.EmployeeTypeId,EmploymentDate=x.EmploymentDate,EmployeeType=x.EmployeeType.Name }).ToList();
             return Ok(employeesDTO);
         }
 

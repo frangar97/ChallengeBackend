@@ -8,9 +8,9 @@ namespace Core.Base
     public interface IUnitOfWork:IDisposable
     {
         public IRepository<EmployeeTypeEntity> EmployeeTypeRepository { get; }
-        public IRepository<EmployeeEntity> EmployeeRepository { get;  }
+        public IEmployeeRepository EmployeeRepository { get;  }
         public IRepository<ShopEntity> ShopRepository { get; }
-        public IRepository<ShopEmployeeEntity> ShopEmployeeRepository { get; }
+        public IShopEmployeeRepository ShopEmployeeRepository { get; }
 
         Task<int> SaveChangesAsync();
         int SaveChanges();

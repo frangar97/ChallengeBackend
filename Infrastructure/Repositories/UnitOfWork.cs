@@ -11,9 +11,9 @@ namespace Infrastructure.Repositories
     {
         private readonly ChallengeContext context;
         private  IRepository<EmployeeTypeEntity> employeeTypeRepository;
-        private  IRepository<EmployeeEntity> employeeRepository;
+        private  IEmployeeRepository employeeRepository;
         private  IRepository<ShopEntity> shopRepository;
-        private  IRepository<ShopEmployeeEntity> shopEmployeeRepository;
+        private  IShopEmployeeRepository shopEmployeeRepository;
 
         public UnitOfWork(ChallengeContext context)
         {
@@ -31,13 +31,13 @@ namespace Infrastructure.Repositories
             } 
         }
 
-        public IRepository<EmployeeEntity> EmployeeRepository
+        public IEmployeeRepository EmployeeRepository
         {
             get
             {
                 if (this.employeeRepository == null)
                 {
-                    this.employeeRepository = new Repository<EmployeeEntity>(context);
+                    this.employeeRepository = new EmployeeRepository(context);
                 }
                 return this.employeeRepository;
             }
@@ -55,13 +55,13 @@ namespace Infrastructure.Repositories
             }
         }
 
-        public IRepository<ShopEmployeeEntity> ShopEmployeeRepository 
+        public IShopEmployeeRepository ShopEmployeeRepository 
         {
             get
             {
                 if (this.shopEmployeeRepository == null)
                 {
-                    this.shopEmployeeRepository = new Repository<ShopEmployeeEntity>(context);
+                    this.shopEmployeeRepository = new ShopEmployeeRepository(context);
                 }
                 return this.shopEmployeeRepository;
             }

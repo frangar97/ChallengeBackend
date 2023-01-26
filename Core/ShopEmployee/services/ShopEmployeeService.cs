@@ -26,9 +26,9 @@ namespace Core.ShopEmployee.services
             await unitOfWork.SaveChangesAsync();
         }
 
-        public IEnumerable<ShopEmployeeEntity> GetAll()
+        public async Task<IEnumerable<ShopEmployeeEntity>> GetAll()
         {
-           return unitOfWork.ShopEmployeeRepository.GetAll();
+           return await unitOfWork.ShopEmployeeRepository.GetAllWithRelations();
         }
     }
 }

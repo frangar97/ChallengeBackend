@@ -2,7 +2,7 @@
 {
     public interface IShopEmployeeService
     {
-        IEnumerable<ShopEmployeeEntity> GetAll();
+        Task<IEnumerable<ShopEmployeeEntity>> GetAll();
         Task CreateShopEmployee(ShopEmployeeEntity entity);
     }
 }
